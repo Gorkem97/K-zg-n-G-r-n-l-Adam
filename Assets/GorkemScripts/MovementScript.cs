@@ -8,6 +8,8 @@ public class MovementScript : MonoBehaviour
 
     public GameObject swordtrace;
 
+    Vector3 lastdirection;
+
     public float speed = 6f ;
     public float attackforwardspeed = 40f;
     public float rollspeed = 2f;
@@ -27,31 +29,37 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!attackmi )
+        if (!attackmi & !rollmu)
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
             Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+            lastdirection = direction;
 
             if (direction.magnitude > 0)
             {
-                if (!rollmu)
-                {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                    transform.rotation = Quaternion.Euler(0, angle, 0);
-                    controller.Move(direction * speed * Time.deltaTime);
+             
+             
+             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+             transform.rotation = Quaternion.Euler(0, angle, 0);
+             controller.Move(direction * speed * Time.deltaTime);
 
-                    if (Input.GetKeyDown("space"))
-                    {
+               if (Input.GetKeyDown("space"))
+               {
                         rollmu = true;
                         StartCoroutine(rollwait(1));
-                    }
-                }
+               }
             }
+        
 
         }
-        if (hareketmi)
+        if (rollmu & !hareketmi)
+        {
+            controller.Move(lastdirection * rollspeed * Time.deltaTime);
+
+        }
+        if (hareketmi & !rollmu)
         {
             transform.position += transform.forward * Time.deltaTime * attackforwardspeed;
         }
