@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 62731156}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 13.71, y: 0.07000001, z: 3.29}
+  m_LocalPosition: {x: 36.77, y: 0.07000001, z: 3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -668,9 +668,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blodPick:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1571122268}
+  - {fileID: 62731156}
+  - {fileID: 1865229909}
+  a: 0
 --- !u!65 &1205403477
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -826,7 +827,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571122268}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 22.9, y: 0.07, z: 3.29}
+  m_LocalPosition: {x: 45.96, y: 0.07, z: 3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -910,7 +911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865229909}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 18.98, y: 0.07000001, z: 3.29}
+  m_LocalPosition: {x: 42.04, y: 0.07000001, z: 3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
