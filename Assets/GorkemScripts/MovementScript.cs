@@ -7,8 +7,11 @@ public class MovementScript : MonoBehaviour
     public CharacterController controller;
 
     public GameObject swordtrace;
-    public float yercekimihizi = 6f;
+
+    Vector3 lastdirection;
+
     public float speed = 6f ;
+    public float yercekimihizi = 6f;
     public float attackforwardspeed = 40f;
     public float rollspeed = 2f;
     
@@ -27,49 +30,52 @@ public class MovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!attackmi )
+        if (!attackmi && !rollmu)
         {
             float horizontal = Input.GetAxisRaw("Horizontal");
             float vertical = Input.GetAxisRaw("Vertical");
             Vector3 direction = new Vector3(horizontal, 0, vertical).normalized;
+            lastdirection = direction;
+
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                hareketmi = true;
+                attackmi = true;
+                AttackTurn();
+                StartCoroutine(Attackwait(0.1f, 0.6f));
+            }
 
             if (direction.magnitude > 0)
             {
-                if (!rollmu)
-                {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-                    transform.rotation = Quaternion.Euler(0, angle, 0);
-                    controller.Move(direction * speed * Time.deltaTime);
+             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+             transform.rotation = Quaternion.Euler(0, angle, 0);
+             controller.Move(direction * speed * Time.deltaTime);
 
-                    if (Input.GetKeyDown("space"))
-                    {
-                        rollmu = true;
-                        StartCoroutine(rollwait(1));
-                    }
-                }
+               if (Input.GetKeyDown("space"))
+               {
+                    rollmu = true;
+                    StartCoroutine(rollwait(0.6f));
+               }
             }
-
+        }
+        if (rollmu)
+        {
+            controller.Move(lastdirection * rollspeed * Time.deltaTime);
         }
         if (hareketmi)
         {
             transform.position += transform.forward * Time.deltaTime * attackforwardspeed;
         }
 
-        if (Input.GetMouseButtonDown(0) & attackmi == false)
-        {
-            hareketmi = true;
-            attackmi = true;
-            AttackTurn();
-            StartCoroutine(Attackwait(0.1f,0.6f));
-        }
-
     }
     private void FixedUpdate()
     {
         Vector3 dus = new Vector3(0, -1, 0);
-        controller.Move(dus * yercekimihizi * Time.deltaTime);
+        controller.Move( dus* yercekimihizi * Time.deltaTime);
     }
+
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
             return Mathf.Atan2(a.x - b.x, a.y - b.y) * Mathf.Rad2Deg;
