@@ -7,7 +7,7 @@ public class MovementScript : MonoBehaviour
     public CharacterController controller;
 
     public GameObject swordtrace;
-
+    public float yercekimihizi = 6f;
     public float speed = 6f ;
     public float attackforwardspeed = 40f;
     public float rollspeed = 2f;
@@ -64,6 +64,11 @@ public class MovementScript : MonoBehaviour
             StartCoroutine(Attackwait(0.1f,0.6f));
         }
 
+    }
+    private void FixedUpdate()
+    {
+        Vector3 dus = new Vector3(0, -1, 0);
+        controller.Move(dus * yercekimihizi * Time.deltaTime);
     }
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
     {
