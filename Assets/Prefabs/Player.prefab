@@ -1844,7 +1844,7 @@ GameObject:
   - component: {fileID: 4334465191467326496}
   - component: {fileID: 3409790811015549269}
   m_Layer: 0
-  m_Name: Breathing Idle
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
