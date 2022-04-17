@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
         public GameObject swordtrace;
 
         Vector3 lastdirection;
+        Transform adana;
 
         public float speed = 6f;
         public float yercekimihizi = 6f;
@@ -38,6 +39,8 @@ public class Movement : MonoBehaviour
         public float smoothness = 60f;
         public float turnSmoothTime = 0.1f;
         float turnSmoothVelocity;
+
+    public Animator anim;
         void Start()
         {
             staminawait = false;
@@ -77,6 +80,8 @@ public class Movement : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, angle, 0);
                     controller.Move(direction * speed * Time.deltaTime);
 
+                anim.SetBool("yuruyormu",true);
+
                     if (Input.GetKeyDown("space") && Stamina > 0)
                     {
                         StartCoroutine(StaminaWaiting(Staminawaittime));
@@ -92,6 +97,10 @@ public class Movement : MonoBehaviour
                         StartCoroutine(dashwait(0.35f));
                     }
                 }
+            if (direction.magnitude<=0)
+            {
+                anim.SetBool("yuruyormu", false);
+            }
             }
             if (rollmu)
             {
@@ -99,7 +108,7 @@ public class Movement : MonoBehaviour
             }
             if (hareketmi)
             {
-                transform.position += transform.forward * Time.deltaTime * attackforwardspeed;
+                controller.Move(transform.forward * Time.deltaTime * attackforwardspeed);
             }
             if (dashmi)
             {
@@ -151,7 +160,7 @@ public class Movement : MonoBehaviour
             float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
 
             transform.rotation = Quaternion.Euler(new Vector3(0f, angle - 180, 0f));
-        }
+    }
         public void GotHit(float HowMuchDamage)
         {
             Health -= HowMuchDamage;
@@ -171,8 +180,10 @@ public class Movement : MonoBehaviour
         }
         IEnumerator Attackwait(float movewaittime, float attackwaittime)
         {
+            anim.SetTrigger("atakmi");
             swordtrace.SetActive(true);
             yield return new WaitForSeconds(movewaittime);
+
             hareketmi = false;
             swordtrace.SetActive(false);
             yield return new WaitForSeconds(attackwaittime);
