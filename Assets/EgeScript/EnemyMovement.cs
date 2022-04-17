@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyMovement : MonoBehaviour
 {
     public Animator enemianim;
@@ -11,6 +12,10 @@ public class EnemyMovement : MonoBehaviour
     public float bitiszamani;
 
     public bool isplayerin = false;
+
+    public float Can = 100;
+
+    Coroutine co;
 
     public Transform attackPoint;
     public float AttackRange;
@@ -24,14 +29,16 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent naw_mesh_agent;
     private void Awake()
     {
-       
         naw_mesh_agent = GetComponent<NavMeshAgent>();
         naw_mesh_agent.enabled = false;
     }
-    // Update is called once per frame
     private void Update()
     {
-
+        if (Can< -0.02f)
+        {
+            StartCoroutine(olme());
+            Can = -0.01f;
+        }
         isplayerin = false;
         Attack();
     }
@@ -44,7 +51,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && !atakvarmi && hasarvuram.Health != 0.1f)
+        if (other.CompareTag("Player") && !atakvarmi && hasarvuram.Health != 0.1f && Can > 0)
         {
             Follow_target();
         }
@@ -60,7 +67,7 @@ public class EnemyMovement : MonoBehaviour
                 Debug.Log("Allah!" + player.name);
                 if (player.name == "Player" && !atakvarmi && hasarvuram.Health != 0.1f)
                 {
-                   StartCoroutine(AttackTime(vurmayibekle, vuruszamani, bitiszamani));
+                   co = StartCoroutine(AttackTime(vurmayibekle, vuruszamani, bitiszamani));
                 }
                 if (player.name == "Player" && hasarvuram.Health != 0.1f)
                 {
@@ -87,13 +94,25 @@ public class EnemyMovement : MonoBehaviour
         yield return new WaitForSeconds(ilkvurma);
         if (isplayerin == true)
         {
-            hasarvuram.GotHit(40);
+            hasarvuram.GotHit(60);
         }
         hasargoster.SetActive(true);
         yield return new WaitForSeconds(vurmadanbekleme);
         hasargoster.SetActive(false);
         atakvarmi = false;
 
+    }
+    public void TakeDamage(float givendamage)
+    {
+        enemianim.SetTrigger("hasaralma");
+        StopCoroutine(co);
+        Can -= givendamage;
+    }
+    IEnumerator olme()
+    {
+        enemianim.SetTrigger("enemiolum");
+        yield return new WaitForSeconds(4);
+        Destroy(this.gameObject);
     }
 
 }

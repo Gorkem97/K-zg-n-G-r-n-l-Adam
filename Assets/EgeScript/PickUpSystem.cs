@@ -7,7 +7,7 @@ public class PickUpSystem : MonoBehaviour
     public GameObject hands;
     bool can_pick_up;
     GameObject object_that_pick_up;
-    private bool has_item;
+    public bool has_item;
     public bool can_destruct;
     public float drop_forward_force, drop_upward_force;
     public List<GameObject> pickupsInRange = new List<GameObject>();
