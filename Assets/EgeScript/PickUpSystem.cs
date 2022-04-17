@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PickUpSystem : MonoBehaviour
 {
+    Quaternion throwrotate;
     public GameObject hands; 
     bool can_pick_up; 
     GameObject object_that_pick_up; 
@@ -23,6 +24,7 @@ public class PickUpSystem : MonoBehaviour
     
     void Update()
     {
+        AttackTurn();
         if (can_pick_up)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -78,5 +80,20 @@ public class PickUpSystem : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         can_pick_up = false;
+    }
+    void AttackTurn()
+    {
+
+        Vector3 positionOnScreen = Camera.main.WorldToViewportPoint(transform.position);
+
+        Vector3 mouseOnScreen = (Vector3)Camera.main.ScreenToViewportPoint(Input.mousePosition);
+
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+        throwrotate = Quaternion.Euler(new Vector3(0f, angle, 0f));
+    }
+    float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+    {
+        return Mathf.Atan2(a.x - b.x, a.y - b.y) * Mathf.Rad2Deg;
     }
 }
