@@ -96,9 +96,7 @@ public class EnemyMovement : MonoBehaviour
         {
             hasarvuram.GotHit(60);
         }
-        hasargoster.SetActive(true);
         yield return new WaitForSeconds(vurmadanbekleme);
-        hasargoster.SetActive(false);
         atakvarmi = false;
 
     }
@@ -111,6 +109,7 @@ public class EnemyMovement : MonoBehaviour
     IEnumerator olme()
     {
         enemianim.SetTrigger("enemiolum");
+        hasargoster.SetActive(true);
         yield return new WaitForSeconds(4);
         Destroy(this.gameObject);
     }

@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
 
         public GameObject swordtrace;
 
+    public AudioSource crush;
+
         Vector3 lastdirection;
 
         public float speed = 6f;
@@ -67,17 +69,18 @@ public class Movement : MonoBehaviour
                 lastdirection = direction;
 
                 if (Input.GetKeyDown("y"))
-                {
-                    GotHit(31);
-                }
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
                 if (Input.GetMouseButtonDown(0) && Stamina > 0 && pikap.has_item == true)
                 {
                     StaminaGo(20);
+                Attack();
                     StartCoroutine(StaminaWaiting(Staminawaittime));
                     hareketmi = true;
                     attackmi = true;
                     AttackTurn();
-                    StartCoroutine(Attackwait(0.1f, 0.3f));
+                    StartCoroutine(Attackwait(0.1f, 0.7f));
                 }
 
                 if (direction.magnitude > 0)
@@ -196,15 +199,13 @@ public class Movement : MonoBehaviour
         IEnumerator Attackwait(float movewaittime, float attackwaittime)
         {
             anim.SetTrigger("atakmi");
-        Attack();
-        swordtrace.SetActive(true);
             yield return new WaitForSeconds(movewaittime);
-
             hareketmi = false;
-            swordtrace.SetActive(false);
             yield return new WaitForSeconds(attackwaittime);
             attackmi = false;
-        }
+            yield return new WaitForSeconds(0.7f);
+            crush.Stop();
+    }
         IEnumerator rollwait(float rollwait, float angle)
         {
             anim.SetTrigger("roll");
@@ -236,6 +237,7 @@ public class Movement : MonoBehaviour
     }
     void Attack()
     {
+        
         Collider[] hitenemies = Physics.OverlapSphere(attackPoint.position, AttackRange, enemyLayers);
         
         foreach (Collider enemy in hitenemies)
@@ -244,10 +246,11 @@ public class Movement : MonoBehaviour
             if (enemy.tag == "Enemy" && Health != 0.1f)
             {
                 enemy.GetComponent<EnemyMovement>().TakeDamage(20);
+                crush.Play();
             }
 
         }
-
+        
 
     }
     private void OnDrawGizmosSelected()

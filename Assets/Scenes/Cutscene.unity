@@ -582,7 +582,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 908456619}
         m_TargetAssemblyTypeName: Cutscne, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Basla
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2225,9 +2225,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hands: {fileID: 6412377494087913319}
+  has_item: 0
   can_destruct: 0
   drop_forward_force: 300
   drop_upward_force: 5
+  pickupsInRange: []
+  is_handed: 0
 --- !u!1 &4383603005453434841
 GameObject:
   m_ObjectHideFlags: 0
@@ -3259,6 +3262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 9030550796578065239}
   swordtrace: {fileID: 0}
+  crush: {fileID: 0}
   speed: 6
   yercekimihizi: 6
   attackforwardspeed: 12
@@ -3270,9 +3274,15 @@ MonoBehaviour:
   Stamina: 100
   staminagainspeed: 16
   staminawait: 0
+  attackPoint: {fileID: 0}
+  AttackRange: 0
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
   youdead: {fileID: 0}
   HealthSlid: {fileID: 0}
   StaminaSlid: {fileID: 0}
+  pikap: {fileID: 0}
   smoothness: 60
   turnSmoothTime: 0.1
   anim: {fileID: 3186406358885294071}
