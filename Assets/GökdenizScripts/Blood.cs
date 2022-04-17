@@ -8,7 +8,7 @@ public class Blood : MonoBehaviour
 
     public GameObject[] blodPick;
 
-    public int a;
+    private int a;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class Blood : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            a = Random.Range(0, 361);
+           
             takeDamage();
         }
 
@@ -33,7 +33,7 @@ public class Blood : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(this.transform.position, -this.transform.up, out hit))
         {
-
+            a = Random.Range(0, 361);
             int pickedBlod = Random.Range(0, blodPick.Length);
             
             GameObject obj = Instantiate(blodPick[pickedBlod], hit.point, Quaternion.LookRotation(hit.normal));
