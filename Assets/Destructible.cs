@@ -21,7 +21,8 @@ public class Destructible : MonoBehaviour
         if (collision.transform.CompareTag("ground") && pick_up_system.can_destruct)
         {
             Break_thing();
-            pick_up_system.can_destruct = false;
+            Destroy(gameObject);
+
         }
     }
     private void Break_thing()
@@ -33,6 +34,7 @@ public class Destructible : MonoBehaviour
             Vector3 force = (rb.transform.position - transform.position).normalized * break_force;
             rb.AddForce(force);
         }
-        Destroy(gameObject);
+        pick_up_system.can_destruct = false;
     }
 }
+
