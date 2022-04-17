@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 525318614081457644}
   - component: {fileID: 518760462342760042}
   - component: {fileID: 510689643424297700}
-  - component: {fileID: 4013073286908509681}
   - component: {fileID: 405739882759969018}
   - component: {fileID: 7286217091300406237}
   - component: {fileID: 775186102493390842}
   - component: {fileID: 5750789618273335523}
+  - component: {fileID: 1593202858526057625}
   m_Layer: 0
   m_Name: ComputerDesk_02_snaps001 (1)
   m_TagString: pick_up_item
@@ -90,19 +90,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4013073286908509681
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523208814424522716}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.90625, y: 0.8125, z: 0.90625}
-  m_Center: {x: 0, y: 0.40625, z: 0}
 --- !u!208 &405739882759969018
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -163,3 +150,17 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.2
   m_Center: {x: 0, y: 0.40625, z: 0}
+--- !u!64 &1593202858526057625
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523208814424522716}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 8a46a18674a4b8e42b093cfbf4d1ab9d, type: 2}

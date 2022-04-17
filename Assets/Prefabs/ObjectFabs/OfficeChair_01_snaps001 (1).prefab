@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6903378571836853407}
   - component: {fileID: 6891897291968592183}
   - component: {fileID: 6885724009586771965}
-  - component: {fileID: 9051602453382140268}
   - component: {fileID: 6719256481291301859}
   - component: {fileID: 1248109600280637898}
   - component: {fileID: 7347579232154262176}
   - component: {fileID: 2329647738818710706}
+  - component: {fileID: 1187814343098810492}
   m_Layer: 0
   m_Name: OfficeChair_01_snaps001 (1)
   m_TagString: pick_up_item
@@ -89,19 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &9051602453382140268
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6907074703784466569}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.674935, y: 1.1134131, z: 0.7530775}
-  m_Center: {x: 0, y: 0.5512755, z: 0.039071217}
 --- !u!208 &6719256481291301859
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -162,3 +149,17 @@ MonoBehaviour:
   destroyedVersion: {fileID: 6422792616813300143, guid: 4fec60c13efedfa4c9183a21740b2f77,
     type: 3}
   break_force: 100
+--- !u!64 &1187814343098810492
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6907074703784466569}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 8fc3f5342b29a4645a192f335d0e21ea, type: 2}
