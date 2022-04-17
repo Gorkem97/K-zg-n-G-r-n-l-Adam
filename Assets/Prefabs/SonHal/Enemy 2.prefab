@@ -1673,7 +1673,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  hasargoster: {fileID: 6121121774151606422}
+  hasargoster: {fileID: 0}
   hasarvuram: {fileID: 0}
   target: {fileID: 0}
 --- !u!195 &6121121775956259423
