@@ -11,7 +11,6 @@ public class Movement : MonoBehaviour
         public GameObject swordtrace;
 
         Vector3 lastdirection;
-        Transform adana;
 
         public float speed = 6f;
         public float yercekimihizi = 6f;
@@ -35,6 +34,7 @@ public class Movement : MonoBehaviour
         bool hareketmi = false;
         bool rollmu = false;
         bool dashmi = false;
+    bool hitwait = false;
 
         public float smoothness = 60f;
         public float turnSmoothTime = 0.1f;
@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
         {
             HealthSlid.value = Health / 100;
             StaminaSlid.value = Stamina / 100;
-            if (!attackmi && !rollmu && !dashmi)
+        if (!attackmi && !rollmu && !dashmi && Health != 0.1f && !hitwait )
             {
                 float horizontal = Input.GetAxisRaw("Horizontal");
                 float vertical = Input.GetAxisRaw("Vertical");
@@ -94,7 +94,7 @@ public class Movement : MonoBehaviour
                         StartCoroutine(StaminaWaiting(Staminawaittime));
                         StaminaGo(30);
                         dashmi = true;
-                        StartCoroutine(dashwait(0.35f));
+                        StartCoroutine(dashwait(0.6f));
                     }
                 }
             if (direction.magnitude<=0)
@@ -124,7 +124,7 @@ public class Movement : MonoBehaviour
                 controller.Move(dus * yercekimihizi * Time.deltaTime);
             }
 
-            if (Health < 100 && Health > 0)
+            if (Health < 100 && Health > 0.1f)
             {
                 Health += healthgainspeed * Time.deltaTime;
             }
@@ -160,13 +160,16 @@ public class Movement : MonoBehaviour
             float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
 
             transform.rotation = Quaternion.Euler(new Vector3(0f, angle - 180, 0f));
-    }
+        }
         public void GotHit(float HowMuchDamage)
         {
+            anim.SetTrigger("hasar");
             Health -= HowMuchDamage;
+        StartCoroutine(hitWaiting(0.8f));
             if (Health <= 0)
             {
-                Health = 0;
+                Health = 0.1f;
+                anim.SetTrigger("olum");
                 youdead.SetActive(true);
             }
         }
@@ -191,14 +194,15 @@ public class Movement : MonoBehaviour
         }
         IEnumerator rollwait(float rollwait, float angle)
         {
-            transform.rotation = Quaternion.Euler(0, angle, -180);
+            anim.SetTrigger("roll");
             yield return new WaitForSeconds(rollwait);
-            transform.rotation = Quaternion.Euler(0, angle, +180);
             rollmu = false;
         }
         IEnumerator dashwait(float dashwait)
         {
+        anim.speed = 2;
             yield return new WaitForSeconds(dashwait);
+        anim.speed = 1;
             dashmi = false;
         }
         IEnumerator StaminaWaiting(float howmuchstaminawait)
@@ -206,8 +210,15 @@ public class Movement : MonoBehaviour
             staminawait = true;
             yield return new WaitForSeconds(howmuchstaminawait);
             staminawait = false;
-        }
-
-
-
     }
+    IEnumerator hitWaiting(float howmuchhitwait)
+    {
+        hitwait = true;
+        yield return new WaitForSeconds(howmuchhitwait);
+        hitwait = false;
+    }
+
+
+
+
+}
