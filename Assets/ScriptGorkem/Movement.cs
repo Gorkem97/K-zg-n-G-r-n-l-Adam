@@ -3,6 +3,7 @@
             using System.Collections.Generic;
             using UnityEngine;
             using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
     {
@@ -70,7 +71,7 @@ public class Movement : MonoBehaviour
                     hareketmi = true;
                     attackmi = true;
                     AttackTurn();
-                    StartCoroutine(Attackwait(0.1f, 0.6f));
+                    StartCoroutine(Attackwait(0.1f, 0.3f));
                 }
 
                 if (direction.magnitude > 0)
@@ -168,6 +169,7 @@ public class Movement : MonoBehaviour
         StartCoroutine(hitWaiting(0.8f));
             if (Health <= 0)
             {
+                
                 Health = 0.1f;
                 anim.SetTrigger("olum");
                 youdead.SetActive(true);
@@ -216,6 +218,10 @@ public class Movement : MonoBehaviour
         hitwait = true;
         yield return new WaitForSeconds(howmuchhitwait);
         hitwait = false;
+    }
+    public void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
