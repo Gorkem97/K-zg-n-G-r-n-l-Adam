@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: f4791703289a8104f8e86cdddf319fdb
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Lofty Goals
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 08d9e9dfb31f91a4dacbcf4769c57aef, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
