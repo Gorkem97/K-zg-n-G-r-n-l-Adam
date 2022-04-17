@@ -3,6 +3,7 @@
             using System.Collections.Generic;
             using UnityEngine;
             using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
     {
@@ -25,10 +26,16 @@ public class Movement : MonoBehaviour
         public float staminagainspeed = 0.2f;
         public bool staminawait;
 
-        public GameObject youdead;
+
+    public Transform attackPoint;
+    public float AttackRange;
+    public LayerMask enemyLayers;
+
+    public GameObject youdead;
         public Slider HealthSlid;
         public Slider StaminaSlid;
 
+    public PickUpSystem pikap;
 
         bool attackmi = false;
         bool hareketmi = false;
@@ -63,14 +70,14 @@ public class Movement : MonoBehaviour
                 {
                     GotHit(31);
                 }
-                if (Input.GetMouseButtonDown(0) && Stamina > 0)
+                if (Input.GetMouseButtonDown(0) && Stamina > 0 && pikap.has_item == true)
                 {
                     StaminaGo(20);
                     StartCoroutine(StaminaWaiting(Staminawaittime));
                     hareketmi = true;
                     attackmi = true;
                     AttackTurn();
-                    StartCoroutine(Attackwait(0.1f, 0.6f));
+                    StartCoroutine(Attackwait(0.1f, 0.3f));
                 }
 
                 if (direction.magnitude > 0)
@@ -164,10 +171,15 @@ public class Movement : MonoBehaviour
         public void GotHit(float HowMuchDamage)
         {
             anim.SetTrigger("hasar");
+        if (!rollmu)
+        {
             Health -= HowMuchDamage;
+
+        }
         StartCoroutine(hitWaiting(0.8f));
             if (Health <= 0)
             {
+                
                 Health = 0.1f;
                 anim.SetTrigger("olum");
                 youdead.SetActive(true);
@@ -184,7 +196,8 @@ public class Movement : MonoBehaviour
         IEnumerator Attackwait(float movewaittime, float attackwaittime)
         {
             anim.SetTrigger("atakmi");
-            swordtrace.SetActive(true);
+        Attack();
+        swordtrace.SetActive(true);
             yield return new WaitForSeconds(movewaittime);
 
             hareketmi = false;
@@ -216,6 +229,30 @@ public class Movement : MonoBehaviour
         hitwait = true;
         yield return new WaitForSeconds(howmuchhitwait);
         hitwait = false;
+    }
+    public void restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    void Attack()
+    {
+        Collider[] hitenemies = Physics.OverlapSphere(attackPoint.position, AttackRange, enemyLayers);
+        
+        foreach (Collider enemy in hitenemies)
+        {
+            
+            if (enemy.tag == "Enemy" && Health != 0.1f)
+            {
+                enemy.GetComponent<EnemyMovement>().TakeDamage(20);
+            }
+
+        }
+
+
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawSphere(attackPoint.position, AttackRange);
     }
 
 
