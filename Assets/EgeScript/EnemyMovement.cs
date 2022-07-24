@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
         enemianim.SetTrigger("kosma");
         naw_mesh_agent.enabled = true;
         naw_mesh_agent.destination = target.position;
-        gameObject.GetComponent<SphereCollider>().radius = 30f;
+        this.gameObject.GetComponent<SphereCollider>().radius = 30f;
     }
     private void OnTriggerStay(Collider other)
     {
@@ -104,6 +104,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemianim.SetTrigger("hasaralma");
         StopCoroutine(co);
+        atakvarmi = false;
         Can -= givendamage;
     }
     IEnumerator olme()

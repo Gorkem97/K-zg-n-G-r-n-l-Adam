@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
     public LayerMask enemyLayers;
 
     public GameObject youdead;
+    AudioSource hit;
         public Slider HealthSlid;
         public Slider StaminaSlid;
 
@@ -54,6 +55,7 @@ public class Movement : MonoBehaviour
         {
             staminawait = false;
             swordtrace.SetActive(false);
+        hit = GameObject.Find("hit").GetComponent<AudioSource>();
         }
 
         // Update is called once per frame
@@ -75,12 +77,13 @@ public class Movement : MonoBehaviour
                 if (Input.GetMouseButtonDown(0) && Stamina > 0 && pikap.has_item == true)
                 {
                     StaminaGo(20);
-                Attack();
+                    anim.SetTrigger("atakmi");
+                    StartCoroutine(Attackwait(0.1f, 0.7f));
+                    Attack();
                     StartCoroutine(StaminaWaiting(Staminawaittime));
                     hareketmi = true;
                     attackmi = true;
                     AttackTurn();
-                    StartCoroutine(Attackwait(0.1f, 0.7f));
                 }
 
                 if (direction.magnitude > 0)
@@ -177,7 +180,7 @@ public class Movement : MonoBehaviour
         if (!rollmu)
         {
             Health -= HowMuchDamage;
-
+            hit.Play();
         }
         StartCoroutine(hitWaiting(0.8f));
             if (Health <= 0)
@@ -198,7 +201,6 @@ public class Movement : MonoBehaviour
         }
         IEnumerator Attackwait(float movewaittime, float attackwaittime)
         {
-            anim.SetTrigger("atakmi");
             yield return new WaitForSeconds(movewaittime);
             hareketmi = false;
             yield return new WaitForSeconds(attackwaittime);
